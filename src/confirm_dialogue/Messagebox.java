@@ -10,6 +10,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 
 /**
@@ -25,7 +27,7 @@ public class Messagebox extends JPanel {
     public void init(){
         setOpaque(false);
         setBackground(new Color(245,245,245));
-        setBackground(new Color(118,118,188));
+        setForeground(new Color(118,118,188));
         
     }
 
@@ -37,12 +39,14 @@ public class Messagebox extends JPanel {
         int y = 40;
         int width = getWidth();
         int height = getHeight();
-        int iconsize = 7;
-        int iconTotal = iconsize * 2;
-        int iconSpace = x* 2;
-        int iconX = (width - (iconSpace + iconTotal)/2);
+        int iconspace = 7;
+        int Totalicon = iconspace * 2;
+        int iconsize = y* 2;
+        int iconX = (width - (iconsize + Totalicon))/2;
         int iconY = 0;
-        Area era = new Area(new Rectangle(x, y, width, height-y));
+        Area era = new Area(new Rectangle2D.Double(x, y, width, height-y));
+        era.subtract(new Area(new Ellipse2D.Double(iconX, iconY-12, iconsize+Totalicon, iconsize  + Totalicon)));
+        g2.setColor(getBackground());
         g2.fill(era);
         g2.dispose();
         
